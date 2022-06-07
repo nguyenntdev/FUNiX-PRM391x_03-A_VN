@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class GridAdapter extends BaseAdapter {
         return 0;
     }
 
+
     @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -44,7 +46,9 @@ public class GridAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.grid_item, null);
         }
+        TextView textView = convertView.findViewById(R.id.tv);
         ImageView imageView = convertView.findViewById(R.id.gridImage);
+        textView.setText(images.get(position).liked + "");
         imageView.setImageResource(images.get(position).resource);
         return convertView;
     }
