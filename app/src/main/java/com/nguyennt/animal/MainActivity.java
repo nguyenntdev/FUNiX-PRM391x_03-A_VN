@@ -18,7 +18,6 @@ import com.nguyennt.animal.ui.gallery.GalleryFragment;
 import com.nguyennt.animal.ui.home.HomeFragment;
 import com.nguyennt.animal.ui.slideshow.SlideshowFragment;
 
-
 public class MainActivity extends AppCompatActivity {
 
 

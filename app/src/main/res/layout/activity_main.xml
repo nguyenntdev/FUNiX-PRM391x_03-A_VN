@@ -16,19 +16,19 @@
         android:orientation="vertical">
 
 
-<!--        <com.google.android.material.appbar.AppBarLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:theme="@style/Theme.Animal.AppBarOverlay">-->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.Animal.AppBarOverlay">
 
-<!--            <androidx.appcompat.widget.Toolbar-->
-<!--                android:id="@+id/toolbar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="?attr/actionBarSize"-->
-<!--                android:background="?attr/colorPrimary"-->
-<!--                app:popupTheme="@style/Theme.Animal.PopupOverlay" />-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.Animal.PopupOverlay" />
 
-<!--        </com.google.android.material.appbar.AppBarLayout>-->
+        </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
             android:id="@+id/content_frame"
@@ -42,12 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:ignore="FragmentTagUsage" />
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

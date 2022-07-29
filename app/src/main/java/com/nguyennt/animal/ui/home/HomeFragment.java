@@ -54,11 +54,6 @@ public class HomeFragment extends Fragment {
     private GridView gridView;
     GridAdapter gridAdapter;
     ArrayList<AnimalModel> listModel = new ArrayList<AnimalModel>();
-//    Toolbar toolbar;
-//    ActionBarDrawerToggle toggle;
-//    DrawerLayout drawerLayout;
-//    NavigationView navigationView;
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -92,7 +87,6 @@ public class HomeFragment extends Fragment {
                 i.putExtras(bundle);
                 startActivityForResult(i, REQUEST_CODE);
 
-                startActivity(i);
             }
         });
 
