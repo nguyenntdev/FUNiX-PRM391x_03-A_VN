@@ -1,7 +1,11 @@
 package com.nguyennt.animal;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -9,6 +13,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,8 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
-            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            actionbar.setHomeAsUpIndicator(R.drawable.ic_white_menu_24);
         }
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+
+
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         toggle.syncState();
@@ -77,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
 }
