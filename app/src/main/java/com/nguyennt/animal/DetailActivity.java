@@ -14,6 +14,9 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView img;
     private int address;
     private String title;
+    private String detail;
+    private boolean liked;
+
     private TextView tvTitle;
     private TextView tvDes;
 
@@ -26,10 +29,14 @@ public class DetailActivity extends AppCompatActivity {
         dataImage = bundle.getInt("image");
         address = bundle.getInt("index", 0);
         title = bundle.getString("title");
+        detail = bundle.getString("detail");
+        liked = bundle.getBoolean("liked");
         tvTitle =findViewById(R.id.tvTitle);
         tvDes = findViewById(R.id.tvDes);
         img.setImageResource(dataImage);
         tvTitle.setText(title);
+        tvDes.setText(detail);
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

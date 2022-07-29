@@ -16,54 +16,39 @@
         android:orientation="vertical">
 
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.Animal.AppBarOverlay">
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:theme="@style/Theme.Animal.AppBarOverlay">-->
 
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                android:background="?attr/colorPrimary"-->
+<!--                app:popupTheme="@style/Theme.Animal.PopupOverlay" />-->
+
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/fragment"
+                android:name="com.nguyennt.animal.ui.home.HomeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="FragmentTagUsage" />
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/Theme.Animal.PopupOverlay" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <GridView
-                android:id="@+id/gridView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:numColumns="3"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="-84dp"></GridView>
-
-            <fragment
-                android:id="@+id/fragmenthome"
-                android:name="com.nguyennt.animal.ui.home.HomeFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="60dp" />
-
-            <fragment
-                android:id="@+id/fragmentgallery"
-                android:name="com.nguyennt.animal.ui.gallery.GalleryFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="60dp" />
-
-            <fragment
-                android:id="@+id/fragmentslideshow"
-                android:name="com.nguyennt.animal.ui.slideshow.SlideshowFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="60dp" />
-        </LinearLayout>
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
