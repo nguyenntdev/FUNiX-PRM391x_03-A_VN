@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class SlideshowFragment extends Fragment {
 
-
+    public SlideshowFragment() {}
     private static final int REQUEST_CODE = 333;
     private GridView gridView;
     GridAdapter gridAdapter;

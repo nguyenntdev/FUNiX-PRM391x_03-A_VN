@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
-        fragmentTransaction.commit();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")

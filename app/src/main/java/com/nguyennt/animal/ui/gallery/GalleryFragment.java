@@ -24,7 +24,8 @@ import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    public GalleryFragment() {
+    }
 
 
     private static final int REQUEST_CODE = 333;
