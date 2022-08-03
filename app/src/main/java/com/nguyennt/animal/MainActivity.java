@@ -26,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
-    private final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -50,12 +51,15 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
+        fragmentTransaction.commit();
+        drawerLayout.closeDrawers();
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
