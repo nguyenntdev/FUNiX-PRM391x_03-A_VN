@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
 
@@ -61,7 +60,7 @@ public class HomeFragment extends Fragment {
         gridView = view.findViewById(R.id.gridView);
 
 
-        listModel.add(new AnimalModel(false, R.drawable.ic_dog, "dog", "", R.drawable.bg_dog));
+        listModel.add(new AnimalModel(false, R.drawable.ic_dog, "dog", "The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog's nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter–gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11]", R.drawable.bg_dog));
         listModel.add(new AnimalModel(false, R.drawable.ic_goose, "goose", "", R.drawable.bg_goose));
         listModel.add(new AnimalModel(false, R.drawable.ic_ladybug, "ladybug", "", R.drawable.bg_ladybug));
         listModel.add(new AnimalModel(false, R.drawable.ic_elephant, "elephant", "", R.drawable.bg_elephant));
@@ -81,14 +80,17 @@ public class HomeFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("index", position);
-
-                bundle.putInt("image", listModel.get(position).resource);
+                bundle.putString("detail", listModel.get(position).detail);
+                bundle.putInt("image", listModel.get(position).photo);
                 bundle.putString("title", listModel.get(position).name);
                 i.putExtras(bundle);
                 startActivityForResult(i, REQUEST_CODE);
 
+
             }
         });
+
+
 
         super.onViewCreated(view, savedInstanceState);
 
@@ -97,6 +99,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == 2) {
+                int position = data.getIntExtra("index", 0);
+                AnimalModel currentData = listModel.get(position);
+
+                listModel.set(position, new AnimalModel(data.getBooleanExtra("liked", false
+                ), currentData.resource, currentData.name, currentData.detail, currentData.photo));
+                gridAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

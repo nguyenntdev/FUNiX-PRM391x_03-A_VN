@@ -46,10 +46,12 @@ public class GridAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.grid_item, null);
         }
-        TextView textView = convertView.findViewById(R.id.tv);
         ImageView imageView = convertView.findViewById(R.id.gridImage);
-        textView.setText(images.get(position).liked + "");
         imageView.setImageResource(images.get(position).resource);
+        ImageView favorite = convertView.findViewById(R.id.favorite);
+        if (images.get(position).liked) {
+            favorite.setImageResource(R.drawable.ic_favorite);
+        }
         return convertView;
     }
 }

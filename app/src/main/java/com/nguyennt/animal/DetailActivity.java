@@ -13,10 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private int dataImage;
-    private ImageView img;
     private int address;
-    private String title;
     private String detail;
     private boolean liked;
 
@@ -32,43 +29,47 @@ public class DetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 
         // showing the back button in action bar
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        img = findViewById(R.id.imageView);
+        ImageView img = findViewById(R.id.imageView);
         Bundle bundle = getIntent().getExtras();
-        dataImage = bundle.getInt("image");
+        int dataImage = bundle.getInt("image");
         address = bundle.getInt("index", 0);
-        title = bundle.getString("title");
+        String title = bundle.getString("title");
         detail = bundle.getString("detail");
         liked = bundle.getBoolean("liked");
-        tvTitle =findViewById(R.id.tvTitle);
+        tvTitle = findViewById(R.id.tvTitle);
         tvDes = findViewById(R.id.tvDes);
         img.setImageResource(dataImage);
         tvTitle.setText(title);
         tvDes.setText(detail);
 
-        img.setOnClickListener(new View.OnClickListener() {
+        ImageView liked2 = findViewById(R.id.liked);
+
+        liked2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final Intent data = new Intent();
-                data.putExtra("ABC", address);
-
-                setResult(900, data);
-
-                finish();
+                if (!liked) {
+                    liked2.setImageResource(R.drawable.ic_favorite);
+                    liked = true;
+                } else {
+                    liked2.setImageResource(R.drawable.ic_favorite_border);
+                    liked = false;
+                }
             }
         });
     }
 
-    // this event will enable the back
-    // function to the button on press
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent();
+            intent.putExtra("index", address);
+            intent.putExtra("liked", liked);
+            setResult(2, intent);
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
