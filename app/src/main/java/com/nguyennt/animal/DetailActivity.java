@@ -14,11 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DetailActivity extends AppCompatActivity {
 
     private int address;
-    private String detail;
     private boolean liked;
-
-    private TextView tvTitle;
-    private TextView tvDes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +33,23 @@ public class DetailActivity extends AppCompatActivity {
         int dataImage = bundle.getInt("image");
         address = bundle.getInt("index", 0);
         String title = bundle.getString("title");
-        detail = bundle.getString("detail");
+        String detail = bundle.getString("detail");
         liked = bundle.getBoolean("liked");
-        tvTitle = findViewById(R.id.tvTitle);
-        tvDes = findViewById(R.id.tvDes);
+        TextView tvTitle = findViewById(R.id.tvTitle);
+        TextView tvDes = findViewById(R.id.tvDes);
         img.setImageResource(dataImage);
         tvTitle.setText(title);
         tvDes.setText(detail);
 
         ImageView liked2 = findViewById(R.id.liked);
 
-        liked2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!liked) {
-                    liked2.setImageResource(R.drawable.ic_favorite);
-                    liked = true;
-                } else {
-                    liked2.setImageResource(R.drawable.ic_favorite_border);
-                    liked = false;
-                }
+        liked2.setOnClickListener(v -> {
+            if (!liked) {
+                liked2.setImageResource(R.drawable.ic_favorite);
+                liked = true;
+            } else {
+                liked2.setImageResource(R.drawable.ic_favorite_border);
+                liked = false;
             }
         });
     }

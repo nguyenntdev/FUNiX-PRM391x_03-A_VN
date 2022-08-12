@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle toggle;
 
 
     @Override
@@ -35,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         toggle.syncState();
 
         fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
@@ -55,32 +52,28 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
 
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
-                        fragmentTransaction.commit();
-                        drawerLayout.closeDrawers();
-                        return true;
-                    case R.id.nav_gallery:
-                        fragmentTransaction.replace(R.id.content_frame, new GalleryFragment());
-                        fragmentTransaction.commit();
-                        drawerLayout.closeDrawers();
-                        return true;
-                    case R.id.nav_slideshow:
-                        fragmentTransaction.replace(R.id.content_frame, new SlideshowFragment());
-                        fragmentTransaction.commit();
-                        drawerLayout.closeDrawers();
-                        return true;
-                }
-
-                drawerLayout.openDrawer(GravityCompat.START);
-                return false;
+        navigationView.setNavigationItemSelectedListener(item -> {
+            FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    fragmentTransaction1.replace(R.id.content_frame, new HomeFragment());
+                    fragmentTransaction1.commit();
+                    drawerLayout.closeDrawers();
+                    return true;
+                case R.id.nav_gallery:
+                    fragmentTransaction1.replace(R.id.content_frame, new GalleryFragment());
+                    fragmentTransaction1.commit();
+                    drawerLayout.closeDrawers();
+                    return true;
+                case R.id.nav_slideshow:
+                    fragmentTransaction1.replace(R.id.content_frame, new SlideshowFragment());
+                    fragmentTransaction1.commit();
+                    drawerLayout.closeDrawers();
+                    return true;
             }
+
+            drawerLayout.openDrawer(GravityCompat.START);
+            return false;
         });
 
 
