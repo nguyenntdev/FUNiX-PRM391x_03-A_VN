@@ -2,15 +2,13 @@ package com.nguyennt.animal.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.nguyennt.animal.AnimalModel;
 import com.nguyennt.animal.DetailActivity;
@@ -24,18 +22,16 @@ import java.util.Objects;
 public class HomeFragment extends Fragment {
 
 
+    private static final int REQUEST_CODE = 333;
+    final ArrayList<AnimalModel> listModel = new ArrayList<>();
+    GridAdapter gridAdapter;
+
     public HomeFragment() {
     }
-
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
-
-
-    private static final int REQUEST_CODE = 333;
-    GridAdapter gridAdapter;
-    final ArrayList<AnimalModel> listModel = new ArrayList<>();
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -56,11 +52,11 @@ public class HomeFragment extends Fragment {
         gridAdapter = new GridAdapter(view.getContext(), listModel);
         gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener((parent, view1, position, id) -> {
-            listModel.get(position).liked = true;
             Intent i = new Intent(view1.getContext(), DetailActivity.class);
 
             Bundle bundle = new Bundle();
             bundle.putInt("index", position);
+            bundle.putBoolean("liked", listModel.get(position).liked);
             bundle.putString("detail", listModel.get(position).detail);
             bundle.putInt("image", listModel.get(position).photo);
             bundle.putString("title", listModel.get(position).name);
@@ -71,11 +67,11 @@ public class HomeFragment extends Fragment {
         });
 
 
-
         super.onViewCreated(view, savedInstanceState);
 
         // or  (ImageView) view.findViewById(R.id.foo);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +84,8 @@ public class HomeFragment extends Fragment {
             if (resultCode == 2) {
                 int position = Objects.requireNonNull(data).getIntExtra("index", 0);
                 AnimalModel currentData = listModel.get(position);
-
-                listModel.set(position, new AnimalModel(data.getBooleanExtra("liked", false
-                ), currentData.resource, currentData.name, currentData.detail, currentData.photo));
+                boolean dataLiked = data.getBooleanExtra("liked", true);
+                listModel.set(position, new AnimalModel(dataLiked, currentData.resource, currentData.name, currentData.detail, currentData.photo));
                 gridAdapter.notifyDataSetChanged();
             }
         }

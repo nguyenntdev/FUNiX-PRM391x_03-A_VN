@@ -43,6 +43,12 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView liked2 = findViewById(R.id.liked);
 
+        if (!liked) {
+            liked2.setImageResource(R.drawable.ic_favorite_border);
+        } else {
+            liked2.setImageResource(R.drawable.ic_favorite);
+        }
+
         liked2.setOnClickListener(v -> {
             if (!liked) {
                 liked2.setImageResource(R.drawable.ic_favorite);

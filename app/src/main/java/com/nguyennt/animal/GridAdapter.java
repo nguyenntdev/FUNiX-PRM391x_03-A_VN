@@ -48,8 +48,13 @@ public class GridAdapter extends BaseAdapter {
         ImageView imageView = convertView.findViewById(R.id.gridImage);
         imageView.setImageResource(images.get(position).resource);
         ImageView favorite = convertView.findViewById(R.id.favorite);
+
+        favorite.setImageResource(R.drawable.ic_favorite);
+
         if (images.get(position).liked) {
-            favorite.setImageResource(R.drawable.ic_favorite);
+            favorite.setVisibility(View.VISIBLE);
+        } else {
+            favorite.setVisibility(View.INVISIBLE);
         }
         return convertView;
     }
