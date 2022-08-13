@@ -32,9 +32,90 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header_navigation"
-        app:menu="@menu/activity_main_drawer"
         app:itemIconTint="@color/white"
-        android:fitsSystemWindows="false" />
+        android:fitsSystemWindows="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:contentDescription="@string/nav_header_desc"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                app:srcCompat="@drawable/ic_title_animal" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nav_home"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_bird"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="@string/birds"
+                    android:layout_weight="2"
+                     android:layout_width="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nav_gallery"
+
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_sea"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="@string/sea_animals"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_mammal"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="@string/mammals_animals"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

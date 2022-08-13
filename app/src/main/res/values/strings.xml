@@ -27,4 +27,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="background">Background image</string>
     <string name="favorite">Set an animal as favorite</string>
+    <string name="sea_animals">Sea animals</string>
+    <string name="birds">Birds</string>
+    <string name="mammals_animals">Mammals animals</string>
 </resources>
