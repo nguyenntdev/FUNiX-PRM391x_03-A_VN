@@ -34,7 +34,7 @@ public class GalleryFragment extends Fragment {
         GridView gridView = view.findViewById(R.id.gridView);
 
 
-        listModel.add(new AnimalModel(false, R.drawable.ic_dog, "dog", "", R.drawable.bg_dog));
+        listModel.add(new AnimalModel(false, R.drawable.ic_woodpecker, "dog", "", R.drawable.bg_dog));
         listModel.add(new AnimalModel(false, R.drawable.ic_goose, "goose", "", R.drawable.bg_goose));
         listModel.add(new AnimalModel(false, R.drawable.ic_ladybug, "ladybug", "", R.drawable.bg_ladybug));
         listModel.add(new AnimalModel(false, R.drawable.ic_elephant, "elephant", "", R.drawable.bg_elephant));

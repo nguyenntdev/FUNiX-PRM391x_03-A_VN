@@ -1,16 +1,15 @@
 package com.nguyennt.animal;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -47,33 +45,47 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         toggle.syncState();
 
-        fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
-        fragmentTransaction.commit();
         drawerLayout.closeDrawers();
 
+        LinearLayout mammalmenu = findViewById(R.id.mammalmenu);
+        LinearLayout birdsmenu = findViewById(R.id.birdsmenu);
+        LinearLayout seamenu = findViewById(R.id.seamenu);
+        ImageView imageViewTitle = findViewById(R.id.titleImageView);
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    fragmentTransaction1.replace(R.id.content_frame, new HomeFragment());
-                    fragmentTransaction1.commit();
-                    drawerLayout.closeDrawers();
-                    return true;
-                case R.id.nav_gallery:
-                    fragmentTransaction1.replace(R.id.content_frame, new GalleryFragment());
-                    fragmentTransaction1.commit();
-                    drawerLayout.closeDrawers();
-                    return true;
-                case R.id.nav_slideshow:
-                    fragmentTransaction1.replace(R.id.content_frame, new SlideshowFragment());
-                    fragmentTransaction1.commit();
-                    drawerLayout.closeDrawers();
-                    return true;
+        mammalmenu.setOnClickListener(new View.OnClickListener() {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                imageViewTitle.setVisibility(View.GONE);
             }
+        });
+        seamenu.setOnClickListener(new View.OnClickListener() {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            drawerLayout.openDrawer(GravityCompat.START);
-            return false;
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction.replace(R.id.content_frame, new GalleryFragment());
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                imageViewTitle.setVisibility(View.GONE);
+
+            }
+        });
+        birdsmenu.setOnClickListener(new View.OnClickListener() {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction.replace(R.id.content_frame, new SlideshowFragment());
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                imageViewTitle.setVisibility(View.GONE);
+
+            }
         });
 
 

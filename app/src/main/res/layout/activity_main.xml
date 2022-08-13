@@ -13,12 +13,13 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.nguyennt.animal.ui.home.HomeFragment"
+        <ImageView
+            android:id="@+id/titleImageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="FragmentTagUsage" />
+            android:layout_height="400dp"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:srcCompat="@drawable/ic_title_animal" />
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -50,30 +51,36 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/nav_home"
-                android:orientation="horizontal"
-                >
+                android:id="@+id/birdsmenu"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:src="@drawable/ic_bird"
                     android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:text="@string/birds"
                     android:layout_weight="2"
-                     android:layout_width="wrap_content"/>
+                     android:layout_width="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/nav_gallery"
-
+                android:id="@+id/seamenu"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 >
 
@@ -82,21 +89,27 @@
                     android:layout_height="80dp"
                     android:src="@drawable/ic_sea"
                     android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:text="@string/sea_animals"
                     android:layout_weight="2"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"/>
 
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/mammalmenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 >
 
@@ -105,13 +118,17 @@
                     android:layout_height="80dp"
                     android:src="@drawable/ic_mammal"
                     android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
                     />
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:text="@string/mammals_animals"
                     android:layout_weight="2"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"/>
 
             </LinearLayout>
 
