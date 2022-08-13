@@ -1,5 +1,6 @@
 package com.nguyennt.animal;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -47,16 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout.closeDrawers();
 
+
         LinearLayout mammalmenu = findViewById(R.id.mammalmenu);
         LinearLayout birdsmenu = findViewById(R.id.birdsmenu);
         LinearLayout seamenu = findViewById(R.id.seamenu);
         ImageView imageViewTitle = findViewById(R.id.titleImageView);
 
         mammalmenu.setOnClickListener(new View.OnClickListener() {
-            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             @Override
             public void onClick(View v) {
+                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
                 fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -64,10 +67,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         seamenu.setOnClickListener(new View.OnClickListener() {
-            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             @Override
             public void onClick(View v) {
+                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
                 fragmentTransaction.replace(R.id.content_frame, new GalleryFragment());
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -76,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         birdsmenu.setOnClickListener(new View.OnClickListener() {
-            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             @Override
             public void onClick(View v) {
+                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content_frame, new SlideshowFragment());
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
