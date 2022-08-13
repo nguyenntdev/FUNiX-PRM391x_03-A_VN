@@ -1,11 +1,16 @@
 package com.nguyennt.animal;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,8 +27,30 @@ import com.nguyennt.animal.ui.slideshow.SlideshowFragment;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static final String mBroadcastAction = "STRING_BROADCAST_ACTION";
     private DrawerLayout drawerLayout;
+    private IntentFilter mIntentFilter;
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        String state, number, message;
 
+        @Override
+
+        public void onReceive(Context context, Intent intent) {
+            state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+            if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                message = "phone is ringing";
+                Toast.makeText(context, "Incoming Call From:" + number, Toast.LENGTH_SHORT).show();
+            }
+            if ((state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK))) {
+                Toast.makeText(context, "Call Received", Toast.LENGTH_SHORT).show();
+            }
+            if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                message += "phone is idled";
+                Toast.makeText(context, "Idled", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
+        //Start MyService cùng với IntentFilter
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(mBroadcastAction);
+        Intent serviceIntent = new Intent(this, MyService.class);
+        startService(serviceIntent);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
 
@@ -95,5 +126,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(mReceiver, mIntentFilter);
+    }
 
+    @Override
+    protected void onPause() {
+        unregisterReceiver(mReceiver);
+        super.onPause();
+    }
 }
+
