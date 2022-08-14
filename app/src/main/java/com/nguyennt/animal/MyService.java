@@ -3,6 +3,7 @@ package com.nguyennt.animal;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -27,12 +28,10 @@ public class MyService extends Service {
                     e.printStackTrace();
                 }
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction(MainActivity.mBroadcastAction);
-                broadcastIntent.putExtra("Data", myString);
+                broadcastIntent.setAction(TelephonyManager.EXTRA_STATE);
                 sendBroadcast(broadcastIntent);
-            }
+                }
         }).start();
-        //flag này có tác dụng khi android bị kill hoặc bộ nhớ thấp, hệ thống sẽ start lại và gửi kết quả lần nữa.
         return START_REDELIVER_INTENT;
     }
 

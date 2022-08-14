@@ -1,12 +1,16 @@
 package com.nguyennt.animal;
 
+import android.Manifest;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +20,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,44 +33,51 @@ import com.nguyennt.animal.ui.slideshow.SlideshowFragment;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static final String mBroadcastAction = "STRING_BROADCAST_ACTION";
+
+
     private DrawerLayout drawerLayout;
     private IntentFilter mIntentFilter;
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        String state, number, message;
 
-        @Override
-
-        public void onReceive(Context context, Intent intent) {
-            state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-            if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                message = "phone is ringing";
-                Toast.makeText(context, "Incoming Call From:" + number, Toast.LENGTH_SHORT).show();
-            }
-            if ((state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK))) {
-                Toast.makeText(context, "Call Received", Toast.LENGTH_SHORT).show();
-            }
-            if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                message += "phone is idled";
-                Toast.makeText(context, "Idled", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(TelephonyManager.EXTRA_STATE);
+        Intent serviceIntent = new Intent(this, MyService.class);
+        startService(serviceIntent); // nhận được cuộc gọi đến + sdt gọi
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_PHONE_STATE)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+        int permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
+        else Toast.makeText(MainActivity.this, "Permission Denied   ", Toast.LENGTH_LONG).show();
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        //Start MyService cùng với IntentFilter
-        mIntentFilter = new IntentFilter();
-        mIntentFilter.addAction(mBroadcastAction);
-        Intent serviceIntent = new Intent(this, MyService.class);
-        startService(serviceIntent);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
 
@@ -85,57 +98,34 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout seamenu = findViewById(R.id.seamenu);
         ImageView imageViewTitle = findViewById(R.id.titleImageView);
 
-        mammalmenu.setOnClickListener(new View.OnClickListener() {
+        mammalmenu.setOnClickListener(v -> {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            @Override
-            public void onClick(View v) {
-                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-                fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
-                fragmentTransaction.commit();
-                drawerLayout.closeDrawers();
-                imageViewTitle.setVisibility(View.GONE);
-            }
+            fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
+            fragmentTransaction.commit();
+            drawerLayout.closeDrawers();
+            imageViewTitle.setVisibility(View.GONE);
         });
-        seamenu.setOnClickListener(new View.OnClickListener() {
+        seamenu.setOnClickListener(v -> {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            @Override
-            public void onClick(View v) {
-                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, new GalleryFragment());
+            fragmentTransaction.commit();
+            drawerLayout.closeDrawers();
+            imageViewTitle.setVisibility(View.GONE);
 
-                fragmentTransaction.replace(R.id.content_frame, new GalleryFragment());
-                fragmentTransaction.commit();
-                drawerLayout.closeDrawers();
-                imageViewTitle.setVisibility(View.GONE);
-
-            }
         });
-        birdsmenu.setOnClickListener(new View.OnClickListener() {
+        birdsmenu.setOnClickListener(v -> {
+            final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, new SlideshowFragment());
+            fragmentTransaction.commit();
+            drawerLayout.closeDrawers();
+            imageViewTitle.setVisibility(View.GONE);
 
-            @Override
-            public void onClick(View v) {
-                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new SlideshowFragment());
-                fragmentTransaction.commit();
-                drawerLayout.closeDrawers();
-                imageViewTitle.setVisibility(View.GONE);
-
-            }
         });
 
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        registerReceiver(mReceiver, mIntentFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        unregisterReceiver(mReceiver);
-        super.onPause();
-    }
 }
 
