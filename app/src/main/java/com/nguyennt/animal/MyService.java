@@ -2,6 +2,7 @@ package com.nguyennt.animal;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -11,10 +12,15 @@ import androidx.annotation.Nullable;
 public class MyService extends Service {
     private String LOG_TAG = "MyService";
     private String myString;
+    private final BroadcastReceiver receiver = new BroadcastReceiver();
     @Override
     public void onCreate() {
         super.onCreate();
         Log.i(LOG_TAG, "onCreate MyService");
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(TelephonyManager.EXTRA_STATE);
+
+        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -40,6 +46,7 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.i(LOG_TAG, "In onDestroy");
+        unregisterReceiver(receiver);
     }
 
     @Nullable

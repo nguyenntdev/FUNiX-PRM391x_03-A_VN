@@ -5,12 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
+import com.nguyennt.animal.MainActivity;
 
 public class BroadcastReceiver extends android.content.BroadcastReceiver {
     private final String TAG = "PhoneStatReceiver";
     private boolean incomingFlag = false;
     private String incoming_number = null;
-
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,6 +27,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                     incomingFlag = true;
                     incoming_number = intent.getStringExtra("incoming_number");
                     Log.i(TAG, "RINGING :" + incoming_number);
+                    Toast.makeText(MainActivity.getContext() ,"Phoned", Toast.LENGTH_SHORT).show();
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     if (incomingFlag) {

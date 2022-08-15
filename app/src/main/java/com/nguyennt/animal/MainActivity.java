@@ -127,5 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static Context getContext() {
+        return MainActivity.getApplicationContext();;
+    }
 }
 
