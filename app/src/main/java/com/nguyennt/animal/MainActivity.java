@@ -53,22 +53,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_PHONE_STATE)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
             } else {
-
-                // No explanation needed, we can request the permission.
-
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         }
         int permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
@@ -123,12 +110,6 @@ public class MainActivity extends AppCompatActivity {
             imageViewTitle.setVisibility(View.GONE);
 
         });
-
-
-    }
-
-    public static Context getContext() {
-        return MainActivity.getApplicationContext();;
     }
 }
 

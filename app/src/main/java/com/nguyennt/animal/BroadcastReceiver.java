@@ -27,7 +27,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                     incomingFlag = true;
                     incoming_number = intent.getStringExtra("incoming_number");
                     Log.i(TAG, "RINGING :" + incoming_number);
-                    Toast.makeText(MainActivity.getContext() ,"Phoned", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context ,"Phoned", Toast.LENGTH_SHORT).show();
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     if (incomingFlag) {

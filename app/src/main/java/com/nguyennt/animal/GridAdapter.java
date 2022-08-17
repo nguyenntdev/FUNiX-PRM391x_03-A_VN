@@ -1,62 +1,84 @@
 package com.nguyennt.animal;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.nguyennt.animal.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 
-public class GridAdapter extends BaseAdapter {
-    final Context context;
-    final ArrayList<AnimalModel> images;
-    LayoutInflater inflater;
+public class GridAdapter extends  RecyclerView.Adapter<GridAdapter.ViewHolder> {
+    private  ArrayList<AnimalModel>  listData;
+    private Context context;
+    private Fragment fragment;
 
-    public GridAdapter(Context context, ArrayList<AnimalModel> images) {
+    public GridAdapter(Context context, ArrayList<AnimalModel> listData) {
+        this.listData = listData;
         this.context = context;
-        this.images = images;
+    }
+
+    @NonNull
+    @Override
+    public GridAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.grid_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return images.size();
-    }
+    public void onBindViewHolder(@NonNull GridAdapter.ViewHolder holder, int position) {
+        int REQUEST_CODE = 333;
+        holder.gridImage.setImageResource(listData.get(position).getResource());
+//        holder.gridImage.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////                Intent intent = new Intent(context, DetailActivity.class);
+////                intent.putExtra("image", listData.get(position).getResource());
+////                intent.putExtra("name", listData.get(position).name);
+////                intent.putExtra("description", listData.get(position).detail);
+////                fragment.showDetails(context, intent);
+////            }
+//        });
 
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-
-    @SuppressLint("InflateParams")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (inflater == null) {
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.grid_item, null);
-        }
-        ImageView imageView = convertView.findViewById(R.id.gridImage);
-        imageView.setImageResource(images.get(position).resource);
-        ImageView favorite = convertView.findViewById(R.id.favorite);
-
-        favorite.setImageResource(R.drawable.ic_favorite);
-
-        if (images.get(position).liked) {
-            favorite.setVisibility(View.VISIBLE);
+        if (listData.get(position).isLiked()) {
+            holder.favoriteImage.setImageResource(R.drawable.ic_favorite);
         } else {
-            favorite.setVisibility(View.INVISIBLE);
+            holder.favoriteImage.setImageResource(R.drawable.ic_favorite_border);
         }
-        return convertView;
+        }
+
+    @Override
+    public int getItemCount() {
+        return listData.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView gridImage;
+        private final ImageView favoriteImage;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            gridImage = itemView.findViewById(R.id.gridImage);
+            favoriteImage = itemView.findViewById(R.id.favorite);
+        }
+
     }
 }
 

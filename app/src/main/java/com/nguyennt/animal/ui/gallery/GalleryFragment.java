@@ -10,11 +10,14 @@ import android.widget.GridView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nguyennt.animal.AnimalModel;
 import com.nguyennt.animal.DetailActivity;
 import com.nguyennt.animal.GridAdapter;
 import com.nguyennt.animal.R;
+import com.nguyennt.animal.RecyclerItemListener;
 
 import java.util.ArrayList;
 
@@ -31,10 +34,10 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        GridView gridView = view.findViewById(R.id.gridView);
+        RecyclerView recyclerView = view.findViewById(R.id.recycleView);
+        GridAdapter adapter = new GridAdapter(getContext(), listModel);
 
-
-        listModel.add(new AnimalModel(false, R.drawable.ic_woodpecker, "dog", "", R.drawable.bg_dog));
+        listModel.add(new AnimalModel(false, R.drawable.ic_dog, "dog", "The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog's nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter–gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11]", R.drawable.bg_dog));
         listModel.add(new AnimalModel(false, R.drawable.ic_goose, "goose", "", R.drawable.bg_goose));
         listModel.add(new AnimalModel(false, R.drawable.ic_ladybug, "ladybug", "", R.drawable.bg_ladybug));
         listModel.add(new AnimalModel(false, R.drawable.ic_elephant, "elephant", "", R.drawable.bg_elephant));
@@ -44,21 +47,41 @@ public class GalleryFragment extends Fragment {
         listModel.add(new AnimalModel(false, R.drawable.ic_dragonfly, "dragonfly", "", R.drawable.bg_dragonfly));
         listModel.add(new AnimalModel(false, R.drawable.ic_penguin, "penguin", "", R.drawable.bg_penguin));
 
-        gridAdapter = new GridAdapter(view.getContext(), listModel);
-        gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener((parent, view1, position, id) -> {
-            listModel.get(position).liked = true;
-            Intent i = new Intent(view1.getContext(), DetailActivity.class);
+        recyclerView.setAdapter(gridAdapter);
 
-            Bundle bundle = new Bundle();
-            bundle.putInt("index", position);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+//        gridView.setOnItemClickListener((parent, view1, position, id) -> {
+//            Intent i = new Intent(view1.getContext(), DetailActivity.class);
+//
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("index", position);
+//            bundle.putBoolean("liked", listModel.get(position).liked);
+//            bundle.putString("detail", listModel.get(position).detail);
+//            bundle.putInt("image", listModel.get(position).photo);
+//            bundle.putString("title", listModel.get(position).name);
+//            i.putExtras(bundle);
+//            startActivityForResult(i, REQUEST_CODE);
+//
+//
+//        });
 
-            bundle.putInt("image", listModel.get(position).resource);
-            bundle.putString("title", listModel.get(position).name);
-            i.putExtras(bundle);
-            startActivityForResult(i, REQUEST_CODE);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemListener(getContext(), new RecyclerItemListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
 
-        });
+                        Intent i = new Intent(view.getContext(), DetailActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("index", position);
+                        bundle.putBoolean("liked", listModel.get(position).liked);
+                        bundle.putString("detail", listModel.get(position).detail);
+                        bundle.putInt("image", listModel.get(position).photo);
+                        bundle.putString("title", listModel.get(position).name);
+                        i.putExtras(bundle);
+                        startActivityForResult(i, REQUEST_CODE);
+                    }
+                }));
 
         super.onViewCreated(view, savedInstanceState);
 
