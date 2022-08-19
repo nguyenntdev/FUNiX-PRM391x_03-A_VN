@@ -1,12 +1,9 @@
 package com.nguyennt.animal.ui.slideshow;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nguyennt.animal.AnimalModel;
-import com.nguyennt.animal.DetailActivity;
 import com.nguyennt.animal.GridAdapter;
 import com.nguyennt.animal.R;
 import com.nguyennt.animal.RecyclerItemListener;
@@ -67,7 +63,6 @@ public class SlideshowFragment extends Fragment {
                 new RecyclerItemListener(getContext(), new RecyclerItemListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        Intent i = new Intent(view.getContext(), DetailActivity.class);
 
                         Bundle bundle = new Bundle();
                         bundle.putInt("index", position);
@@ -75,8 +70,7 @@ public class SlideshowFragment extends Fragment {
                         bundle.putString("detail", listModel.get(position).detail);
                         bundle.putInt("image", listModel.get(position).photo);
                         bundle.putString("title", listModel.get(position).name);
-                        i.putExtras(bundle);
-                        startActivityForResult(i, REQUEST_CODE);
+
                     }
                 }));
 

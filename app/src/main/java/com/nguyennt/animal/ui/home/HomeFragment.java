@@ -1,31 +1,27 @@
 package com.nguyennt.animal.ui.home;
 
-import static android.content.Intent.getIntent;
-
-import android.app.Activity;
-import android.content.Context;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nguyennt.animal.AnimalModel;
-import com.nguyennt.animal.DetailActivity;
 import com.nguyennt.animal.GridAdapter;
-import com.nguyennt.animal.MainActivity;
 import com.nguyennt.animal.R;
 import com.nguyennt.animal.RecyclerItemListener;
+import com.nguyennt.animal.ui.detail.DetailFragment;
+import com.nguyennt.animal.ui.gallery.GalleryFragment;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -35,8 +31,9 @@ public class HomeFragment extends Fragment {
 
 
     private static final int REQUEST_CODE = 333;
-    final ArrayList<AnimalModel> listModel = new ArrayList<>();
-    GridAdapter gridAdapter;
+    static final ArrayList<AnimalModel> listModel = new ArrayList<>();
+    private GridAdapter adapter;
+    private GridAdapter gridAdapter;
 
     public HomeFragment() {
     }
@@ -49,7 +46,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         RecyclerView recyclerView = view.findViewById(R.id.recycleView);
-        GridAdapter adapter = new GridAdapter(getContext(), listModel);
+        adapter  = new GridAdapter(getContext(), listModel);
 
         listModel.add(new AnimalModel(false, R.drawable.ic_dog, "dog", "The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog's nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter–gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11]", R.drawable.bg_dog));
         listModel.add(new AnimalModel(false, R.drawable.ic_goose, "goose", "", R.drawable.bg_goose));
@@ -62,25 +59,29 @@ public class HomeFragment extends Fragment {
         listModel.add(new AnimalModel(false, R.drawable.ic_penguin, "penguin", "", R.drawable.bg_penguin));
         LinearLayoutCompat linearLayoutCompat = view.findViewById(R.id.LinearLayoutCompat);
 
-        recyclerView.setAdapter(gridAdapter);
 
+        recyclerView.setAdapter(gridAdapter);
         recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemListener(getContext(), new RecyclerItemListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        Intent i = new Intent(view.getContext(), DetailActivity.class);
+//                        Intent i = new Intent(view.getContext(), DetailActivity.class);
 
                         Bundle bundle = new Bundle();
-                        bundle.putInt("index", position);
-                        bundle.putBoolean("liked", listModel.get(position).liked);
-                        bundle.putString("detail", listModel.get(position).detail);
-                        bundle.putInt("image", listModel.get(position).photo);
-                        bundle.putString("title", listModel.get(position).name);
-                        i.putExtras(bundle);
-                        startActivityForResult(i, REQUEST_CODE);
+                        bundle.putInt("position", position);
+                        bundle.putParcelableArrayList("listModel", (ArrayList<? extends Parcelable>) listModel);
+                        // Set Fragmentclass Arguments
+                        DetailFragment fragment = new DetailFragment(bundle);
+                        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+                        fragmentTransaction.replace(R.id.content_frame, new DetailFragment(bundle));
+                        fragmentTransaction.commit();
+//                        i.putExtras(bundle);
+//                        startActivityForResult(i, REQUEST_CODE);
                     }
                 }));
 
@@ -104,7 +105,7 @@ public class HomeFragment extends Fragment {
                 AnimalModel currentData = listModel.get(position);
                 boolean dataLiked = data.getBooleanExtra("liked", true);
                 listModel.set(position, new AnimalModel(dataLiked, currentData.resource, currentData.name, currentData.detail, currentData.photo));
-                gridAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
         }
     }

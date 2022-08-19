@@ -1,7 +1,10 @@
 package com.nguyennt.animal;
 
 
-public class AnimalModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AnimalModel implements Parcelable {
     public boolean liked;
     public int resource;
 
@@ -31,5 +34,15 @@ public class AnimalModel {
 
     public void setResource(int resource) {
         this.resource = resource;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }
