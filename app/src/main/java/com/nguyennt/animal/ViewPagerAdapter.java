@@ -1,6 +1,7 @@
 package com.nguyennt.animal;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,10 +51,17 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
         holder.tvTitle.setText(listModel.get(position).name);
         holder.tvDes.setText(listModel.get(position).detail);
         holder.likedState = listModel.get(position).liked;
+        holder.liked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listModel.get(position).liked = !listModel.get(position).liked;
+                notifyDataSetChanged();
+            }
+        });
         if (holder.likedState) {
-            holder.imageView.setImageResource(R.drawable.ic_favorite);
+            holder.liked.setImageResource(R.drawable.ic_favorite);
         } else {
-            holder.imageView.setImageResource(R.drawable.ic_favorite_border);
+            holder.liked.setImageResource(R.drawable.ic_favorite_border);
         }
     }
 
