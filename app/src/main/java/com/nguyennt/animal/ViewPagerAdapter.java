@@ -1,14 +1,20 @@
 package com.nguyennt.animal;
 
+import static android.icu.lang.UCharacter.toUpperCase;
+
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,11 +33,14 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 
     private Context context;
     ArrayList<AnimalModel> listModel;
+    DetailFragment detailFragment;
+
 
     // Constructor of our ViewPager2Adapter class
-    public ViewPagerAdapter(Context context, ArrayList listModel) {
+    public ViewPagerAdapter(Context context, ArrayList listModel, DetailFragment detailFragment) {
         this.context = context;
         this.listModel = listModel;
+        this.detailFragment = detailFragment;
     }
 
 
@@ -46,6 +55,9 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
     // This method binds the screen with the view
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+       Character.toUpperCase( listModel.get(position).name.charAt(0));
+
         // This will set the images in imageview
         holder.imageView.setImageResource(listModel.get(position).resource);
         holder.tvTitle.setText(listModel.get(position).name);
@@ -54,7 +66,14 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
         holder.liked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("position", position);
+
                 listModel.get(position).liked = !listModel.get(position).liked;
+
+                bundle.putBoolean("liked", listModel.get(position).liked);
+                detailFragment.getParentFragmentManager().setFragmentResult("animalKey", bundle);
+
                 notifyDataSetChanged();
             }
         });
@@ -63,6 +82,9 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
         } else {
             holder.liked.setImageResource(R.drawable.ic_favorite_border);
         }
+
+
+
     }
 
     // This Method returns the size of the Array
@@ -70,6 +92,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
     public int getItemCount() {
         return listModel.size();
     }
+
 
 
     // The ViewHolder class holds the view
@@ -85,7 +108,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
             imageView = itemView.findViewById(R.id.imageView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDes = itemView.findViewById(R.id.tvDes);
-            liked = itemView.findViewById(R.id.favorite);
+            liked = itemView.findViewById(R.id.liked);
         }
     }
 }

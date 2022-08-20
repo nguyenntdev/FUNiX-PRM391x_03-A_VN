@@ -1,5 +1,8 @@
 package com.nguyennt.animal.ui.detail;
 
+import static androidx.fragment.app.FragmentKt.setFragmentResult;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,12 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.nguyennt.animal.R;
 import com.nguyennt.animal.ViewPagerAdapter;
 
 import java.util.ArrayList;
-
 
 public class DetailFragment extends Fragment {
 
@@ -32,7 +35,7 @@ public class DetailFragment extends Fragment {
     }
 
     public DetailFragment(Bundle savedInstanceState) {
-        savedInstanceState.getInt("position", position);
+        position = savedInstanceState.getInt("position", position);
         listModel = savedInstanceState.getParcelableArrayList("listModel");
     }
 
@@ -45,9 +48,17 @@ public class DetailFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
         FrameLayout detailsLayout = new FrameLayout(getContext());
         detailsLayout.setVisibility(View.GONE);
+
+        ImageView backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         // calling the action bar
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
@@ -58,15 +69,18 @@ public class DetailFragment extends Fragment {
 
         viewPager2 = view.findViewById(R.id.viewPager2);
 
+
+
         // Object of ViewPager2Adapter
         // this will passes the
         // context to the constructor
         // of ViewPager2Adapter
-        ViewPagerAdapter viewPager2Adapter = new ViewPagerAdapter(getContext(), listModel);
+        ViewPagerAdapter viewPager2Adapter = new ViewPagerAdapter(getContext(), listModel, this);
 
         // adding the adapter to viewPager2
         // to show the views in recyclerview
         viewPager2.setAdapter(viewPager2Adapter);
+        viewPager2.setCurrentItem(position, false);
 
         // To get swipe event of viewpager2
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -89,6 +103,8 @@ public class DetailFragment extends Fragment {
                 super.onPageScrollStateChanged(state);
             }
         });
+
+
         super.onViewCreated(view, savedInstanceState);
 
         // or  (ImageView) view.findViewById(R.id.foo);

@@ -26,14 +26,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
-import com.nguyennt.animal.ui.gallery.GalleryFragment;
 import com.nguyennt.animal.ui.home.HomeFragment;
-import com.nguyennt.animal.ui.slideshow.SlideshowFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
 
     private DrawerLayout drawerLayout;
     private IntentFilter mIntentFilter;
@@ -59,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         int permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED)
+            Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
         else Toast.makeText(MainActivity.this, "Permission Denied   ", Toast.LENGTH_LONG).show();
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -88,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         mammalmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            fragmentTransaction.replace(R.id.content_frame, new HomeFragment());
+            fragmentTransaction.replace(R.id.content_frame, new HomeFragment(1));
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
@@ -96,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         seamenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            fragmentTransaction.replace(R.id.content_frame, new GalleryFragment());
+            fragmentTransaction.replace(R.id.content_frame, new HomeFragment(2));
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
@@ -104,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         });
         birdsmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, new SlideshowFragment());
+            fragmentTransaction.replace(R.id.content_frame, new HomeFragment(3));
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
