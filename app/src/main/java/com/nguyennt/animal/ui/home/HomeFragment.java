@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
                         fragmentTransaction
                                 .addToBackStack("name")
                                 .replace(R.id.content_frame, new DetailFragment(bundle))
-                                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                                .setCustomAnimations(R.anim.fade_in, 0, 0, R.anim.fade_out)
                                 .commit();
 //                        i.putExtras(bundle);
 //                        startActivityForResult(i, REQUEST_CODE);
