@@ -52,13 +52,6 @@ public class DetailFragment extends Fragment {
         FrameLayout detailsLayout = new FrameLayout(getContext());
         detailsLayout.setVisibility(View.GONE);
 
-        ImageView backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
 
         toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.toolbar2);
 

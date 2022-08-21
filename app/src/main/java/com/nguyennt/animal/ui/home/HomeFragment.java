@@ -113,9 +113,9 @@ public class HomeFragment extends Fragment {
 
                         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction
-                                .addToBackStack("name")
+                                .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
                                 .replace(R.id.content_frame, new DetailFragment(bundle))
-                                .setCustomAnimations(R.anim.fade_in, 0, 0, R.anim.fade_out)
+                                .addToBackStack("name")
                                 .commit();
 //                        i.putExtras(bundle);
 //                        startActivityForResult(i, REQUEST_CODE);

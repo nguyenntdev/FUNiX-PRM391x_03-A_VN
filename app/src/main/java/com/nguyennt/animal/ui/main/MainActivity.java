@@ -84,10 +84,9 @@ public class MainActivity extends AppCompatActivity {
         mammalmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction
+                    .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
                     .replace(R.id.content_frame, new HomeFragment(1))
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-            ;
-            fragmentTransaction.commit();
+                    .commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
         });
@@ -95,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             fragmentTransaction
+                    .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
                     .replace(R.id.content_frame, new HomeFragment(2))
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                     .commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
@@ -105,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         birdsmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction
+                    .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
                     .replace(R.id.content_frame, new HomeFragment(3))
-                    .setCustomAnimations(R.anim.fade_in,0, 0, R.anim.fade_out)
                     .commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
