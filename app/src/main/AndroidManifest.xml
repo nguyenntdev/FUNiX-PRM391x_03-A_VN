@@ -14,13 +14,7 @@
         android:theme="@style/Theme.Animal">
 
         <activity
-            android:name=".NavigationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.Animal.NoActionBar" />
-
-        <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="Animal cute"
             android:theme="@style/Theme.Animal.NoActionBar">
@@ -37,8 +31,8 @@
         <!--                <action android:name="android.intent.action.PHONE_STATE" />-->
         <!--            </intent-filter>-->
         <!--        </receiver>-->
-        <service android:name=".MyService" />
-        <receiver android:name=".BroadcastReceiver"
+        <service android:name=".util.MyService" />
+        <receiver android:name=".util.BroadcastReceiver"
             android:exported="true">
 
             <intent-filter>

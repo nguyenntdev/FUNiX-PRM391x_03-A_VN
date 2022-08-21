@@ -1,10 +1,7 @@
 package com.nguyennt.animal.ui.home;
 
-import static androidx.fragment.app.FragmentKt.setFragmentResult;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.nguyennt.animal.AnimalModel;
-import com.nguyennt.animal.GridAdapter;
 import com.nguyennt.animal.R;
-import com.nguyennt.animal.RecyclerItemListener;
+import com.nguyennt.animal.adapter.GridAdapter;
+import com.nguyennt.animal.model.AnimalModel;
 import com.nguyennt.animal.ui.detail.DetailFragment;
+import com.nguyennt.animal.util.RecyclerItemListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -32,10 +29,11 @@ import java.util.Objects;
 public class HomeFragment extends Fragment {
 
 
-    private static final int REQUEST_CODE = 333;
     static final ArrayList<AnimalModel> listModel = new ArrayList<>();
+    private static final int REQUEST_CODE = 333;
     private GridAdapter adapter;
     private GridAdapter gridAdapter;
+    private boolean changed;
 
     private int type;
 
@@ -43,7 +41,12 @@ public class HomeFragment extends Fragment {
     }
 
     public HomeFragment(int type) {
-        this.type = type;
+        if (this.type != type) {
+            this.type = type;
+            changed = true;
+        } else {
+            changed = false;
+        }
     }
 
 
@@ -55,11 +58,12 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
 
         RecyclerView recyclerView = view.findViewById(R.id.recycleView);
-
-        if (listModel.size() == 0) {
+        if (changed) {
+            listModel.clear();
             if (type == 1) {
                 listModel.add(new AnimalModel(false, R.drawable.ic_dog, "dog", "The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog's nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter–gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11]", R.drawable.bg_dog));
                 listModel.add(new AnimalModel(false, R.drawable.ic_goose, "goose", "", R.drawable.bg_goose));
@@ -101,9 +105,10 @@ public class HomeFragment extends Fragment {
 
                         Bundle bundle = new Bundle();
                         bundle.putInt("position", position);
-                        bundle.putParcelableArrayList("listModel", (ArrayList<? extends Parcelable>) listModel);
+                        bundle.putParcelableArrayList("listModel", listModel);
                         // Set Fragmentclass Arguments
                         DetailFragment fragment = new DetailFragment(bundle);
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
                         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.addToBackStack("name");
                         fragmentTransaction.replace(R.id.content_frame, new DetailFragment(bundle));
@@ -114,7 +119,6 @@ public class HomeFragment extends Fragment {
 //                        startActivityForResult(i, REQUEST_CODE);
                     }
                 }));
-
 
         super.onViewCreated(view, savedInstanceState);
 

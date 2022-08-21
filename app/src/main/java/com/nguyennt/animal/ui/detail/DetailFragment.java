@@ -1,8 +1,5 @@
 package com.nguyennt.animal.ui.detail;
 
-import static androidx.fragment.app.FragmentKt.setFragmentResult;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,9 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.nguyennt.animal.R;
-import com.nguyennt.animal.ViewPagerAdapter;
+import com.nguyennt.animal.adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
 
@@ -46,9 +44,11 @@ public class DetailFragment extends Fragment {
 
     }
 
+    public ActionBar actionBar;
+    public Toolbar toolbar;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
         FrameLayout detailsLayout = new FrameLayout(getContext());
         detailsLayout.setVisibility(View.GONE);
 
@@ -60,12 +60,25 @@ public class DetailFragment extends Fragment {
             }
         });
 
-        // calling the action bar
-        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        toolbar = ((AppCompatActivity)getActivity()).findViewById(R.id.toolbar2);
 
+        toolbar.setTitle("title");
+//        // calling the action bar
+//        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+//        actionBar.setTitle("title");
         // showing the back button in action bar
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
+        if (((AppCompatActivity)requireActivity()).getSupportActionBar() != null){
+            ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         viewPager2 = view.findViewById(R.id.viewPager2);
 
@@ -103,6 +116,7 @@ public class DetailFragment extends Fragment {
                 super.onPageScrollStateChanged(state);
             }
         });
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 
 
         super.onViewCreated(view, savedInstanceState);
