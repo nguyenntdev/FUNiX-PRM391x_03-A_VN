@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -81,8 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
         mammalmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-            fragmentTransaction.replace(R.id.content_frame, new HomeFragment(1));
+            fragmentTransaction
+                    .replace(R.id.content_frame, new HomeFragment(1))
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+            ;
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
@@ -90,16 +94,20 @@ public class MainActivity extends AppCompatActivity {
         seamenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            fragmentTransaction.replace(R.id.content_frame, new HomeFragment(2));
-            fragmentTransaction.commit();
+            fragmentTransaction
+                    .replace(R.id.content_frame, new HomeFragment(2))
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                    .commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
 
         });
         birdsmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, new HomeFragment(3));
-            fragmentTransaction.commit();
+            fragmentTransaction
+                    .replace(R.id.content_frame, new HomeFragment(3))
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                    .commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
 

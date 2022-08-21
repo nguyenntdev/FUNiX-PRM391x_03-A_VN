@@ -59,7 +59,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
+        getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+
 
         RecyclerView recyclerView = view.findViewById(R.id.recycleView);
         if (changed) {
@@ -108,13 +109,14 @@ public class HomeFragment extends Fragment {
                         bundle.putParcelableArrayList("listModel", listModel);
                         // Set Fragmentclass Arguments
                         DetailFragment fragment = new DetailFragment(bundle);
-                        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+                        getActivity().findViewById(R.id.toolbar).setVisibility(View.GONE);
+
                         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.addToBackStack("name");
-                        fragmentTransaction.replace(R.id.content_frame, new DetailFragment(bundle));
-
-                        fragmentTransaction.commit();
-
+                        fragmentTransaction
+                                .addToBackStack("name")
+                                .replace(R.id.content_frame, new DetailFragment(bundle))
+                                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                                .commit();
 //                        i.putExtras(bundle);
 //                        startActivityForResult(i, REQUEST_CODE);
                     }
