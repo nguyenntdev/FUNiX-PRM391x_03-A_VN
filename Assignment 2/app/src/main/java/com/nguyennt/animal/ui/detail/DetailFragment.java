@@ -1,5 +1,6 @@
 package com.nguyennt.animal.ui.detail;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -56,7 +57,8 @@ public class DetailFragment extends Fragment {
 
         toolbar = ((AppCompatActivity) requireActivity()).findViewById(R.id.toolbar2);
 
-        toolbar.setTitle("title"); 
+        toolbar.setTitle("title");
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         ((AppCompatActivity)requireActivity()).setSupportActionBar(toolbar);
         if (((AppCompatActivity)requireActivity()).getSupportActionBar() != null){
             Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

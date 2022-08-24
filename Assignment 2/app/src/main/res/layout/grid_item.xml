@@ -17,13 +17,14 @@
             android:layout_height="100dp"
             android:src="@drawable/ic_dog"
             android:id="@+id/gridImage"
+            android:alpha="0.7"
             />
 
         <ImageView
             android:id="@+id/favorite"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="15dp"
             android:layout_gravity="bottom|end"
             />
 

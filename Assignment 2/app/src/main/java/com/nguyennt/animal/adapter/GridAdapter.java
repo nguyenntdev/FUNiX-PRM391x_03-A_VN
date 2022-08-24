@@ -39,7 +39,7 @@ public class GridAdapter extends  RecyclerView.Adapter<GridAdapter.ViewHolder> {
         if (listData.get(position).isLiked()) {
             holder.favoriteImage.setImageResource(R.drawable.ic_favorite);
         } else {
-            holder.favoriteImage.setImageResource(R.drawable.ic_favorite_border);
+            holder.favoriteImage.setVisibility(View.GONE);
         }
         }
 
