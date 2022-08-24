@@ -52,7 +52,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
         holder.tvTitle.setText(listModel.get(position).name);
         holder.tvDes.setText(listModel.get(position).detail);
         holder.likedState = listModel.get(position).liked;
-        detailFragment.toolbar.setTitle(listModel.get(position).name);
+        detailFragment.toolbar.setTitle("Animal");
         holder.liked.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("position", position);

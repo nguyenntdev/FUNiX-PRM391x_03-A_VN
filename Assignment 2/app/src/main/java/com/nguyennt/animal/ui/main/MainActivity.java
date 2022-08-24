@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mammalmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction
-                    .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
+                    .setCustomAnimations(R.anim.slide_in, 0, 0, 0)
                     .replace(R.id.content_frame, new HomeFragment(1))
                     .commit();
             drawerLayout.closeDrawers();
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             fragmentTransaction
-                    .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
+                    .setCustomAnimations(R.anim.slide_in, 0, 0, 0)
                     .replace(R.id.content_frame, new HomeFragment(2))
                     .commit();
             drawerLayout.closeDrawers();
@@ -101,12 +101,11 @@ public class MainActivity extends AppCompatActivity {
         birdsmenu.setOnClickListener(v -> {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction
-                    .setCustomAnimations(R.anim.alpha, 0, 0, R.anim.alpha)
+                    .setCustomAnimations(R.anim.slide_in, 0, 0, 0)
                     .replace(R.id.content_frame, new HomeFragment(3))
                     .commit();
             drawerLayout.closeDrawers();
             imageViewTitle.setVisibility(View.GONE);
-
         });
     }
 }
