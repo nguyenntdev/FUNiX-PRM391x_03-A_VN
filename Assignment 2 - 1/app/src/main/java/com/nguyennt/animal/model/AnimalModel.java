@@ -13,7 +13,6 @@ public class AnimalModel implements Parcelable {
     public  String name;
     public  String detail;
     public  int photo;
-    public  ArrayList<Integer> listPhoto;
 
     public AnimalModel(boolean like, int r, String name, String detail, int photo) {
         this.liked = like;
@@ -29,16 +28,8 @@ public class AnimalModel implements Parcelable {
         return liked;
     }
 
-    public void setLiked(boolean liked) {
-        this.liked = liked;
-    }
-
     public int getResource() {
         return resource;
-    }
-
-    public void setResource(int resource) {
-        this.resource = resource;
     }
 
     @Override

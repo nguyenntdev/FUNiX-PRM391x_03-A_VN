@@ -40,13 +40,6 @@ public class DetailFragment extends Fragment {
     }
 
 
-    public void newInstance(Bundle savedInstanceState) {
-        savedInstanceState.getInt("position", position);
-        listModel = savedInstanceState.getParcelableArrayList("listModel");
-
-    }
-
-    public ActionBar actionBar;
     public Toolbar toolbar;
 
     @Override

@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<AnimalModel> listBirds = new ArrayList<>();
     static ArrayList<AnimalModel> listSea = new ArrayList<>();
     static ArrayList<AnimalModel> listMammals = new ArrayList<>();
-    static  Bundle bundle;
 
 
     @Override
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setBundle(Bundle bundle) {
-        this.bundle = bundle;
         if (bundle.getInt("type") == 1) {
             listMammals = bundle.getParcelableArrayList("listModel");
         } else if (bundle.getInt("type") == 2) {

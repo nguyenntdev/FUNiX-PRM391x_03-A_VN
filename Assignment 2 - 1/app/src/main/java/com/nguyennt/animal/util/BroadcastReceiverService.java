@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 
 public class BroadcastReceiverService extends android.app.Service {
     private final String LOG_TAG = "MyService";
-    private String myString;
     private final BroadcastReceiver receiver = new BroadcastReceiver();
     @Override
     public void onCreate() {

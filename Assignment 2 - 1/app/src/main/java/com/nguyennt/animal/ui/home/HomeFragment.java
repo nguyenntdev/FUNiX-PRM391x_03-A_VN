@@ -2,17 +2,12 @@ package com.nguyennt.animal.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,10 +44,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
-    }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
@@ -60,7 +51,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycleView);
 
 
-        adapter = new GridAdapter(getContext(), listModel);
+        adapter = new GridAdapter(listModel);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -75,7 +66,7 @@ public class HomeFragment extends Fragment {
 
                     // Set Fragmentclass Arguments
                     DetailFragment fragment = new DetailFragment(bundle);
-                    getActivity().findViewById(R.id.toolbar).setVisibility(View.GONE);
+                    Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar).setVisibility(View.GONE);
 
                     FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction
@@ -89,7 +80,7 @@ public class HomeFragment extends Fragment {
         bundle.putParcelableArrayList("listModel", listModel);
         bundle.putInt("type", type);
         MainActivity activity = (MainActivity) getActivity();
-        activity.setBundle(bundle);
+        Objects.requireNonNull(activity).setBundle(bundle);
 
 
         super.onViewCreated(view, savedInstanceState);

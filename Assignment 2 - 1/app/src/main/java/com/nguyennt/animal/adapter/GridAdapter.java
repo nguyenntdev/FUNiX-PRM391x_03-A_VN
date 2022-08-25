@@ -1,6 +1,5 @@
 package com.nguyennt.animal.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,8 @@ import java.util.ArrayList;
 
 public class GridAdapter extends  RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private final ArrayList<AnimalModel>  listData;
-    private Fragment fragment;
 
-    public GridAdapter(Context context, ArrayList<AnimalModel> listData) {
+    public GridAdapter(ArrayList<AnimalModel> listData) {
         this.listData = listData;
     }
 
